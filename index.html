@@ -688,7 +688,7 @@
                 <div class="corner-accent corner-tl"></div>
                 <div class="corner-accent corner-tr"></div>
                 
-                <svg class="butterfly-mini" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                <svg class="butterfly-mini" width="50" height="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
                     <path d="M25 25 Q18 15 12 20 Q15 28 25 25 Q35 28 38 20 Q32 15 25 25" fill="#d4af37" opacity="0.8"/>
                     <path d="M25 25 Q18 32 14 36 Q20 34 25 25 Q30 34 36 36 Q32 32 25 25" fill="#d4af37" opacity="0.6"/>
                     <line x1="25" y1="18" x2="23" y2="12" stroke="#666" stroke-width="0.8"/>
@@ -723,7 +723,7 @@
                     <div class="inner-gold-frame"></div>
                     <div class="bg-pattern-overlay"></div>
 
-                    <svg class="hanging-lantern lantern-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 140" preserveAspectRatio="none">
+                    <svg class="hanging-lantern lantern-left" width="30" height="140" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 140" preserveAspectRatio="none">
                         <line x1="15" y1="0" x2="15" y2="90" stroke="#d4af37" stroke-width="1.2"/>
                         <path d="M10 90 L20 90 L23 96 L7 96 Z" fill="#d4af37"/>
                         <path d="M6 96 L24 96 L21 114 L9 114 Z" fill="none" stroke="#d4af37" stroke-width="1.2"/>
@@ -733,7 +733,7 @@
                         <circle cx="15" cy="133" r="1.5" fill="#006837"/>
                     </svg>
 
-                    <svg class="hanging-lantern lantern-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 140" preserveAspectRatio="none">
+                    <svg class="hanging-lantern lantern-right" width="30" height="140" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 140" preserveAspectRatio="none">
                         <line x1="15" y1="0" x2="15" y2="90" stroke="#d4af37" stroke-width="1.2"/>
                         <path d="M10 90 L20 90 L23 96 L7 96 Z" fill="#d4af37"/>
                         <path d="M6 96 L24 96 L21 114 L9 114 Z" fill="none" stroke="#d4af37" stroke-width="1.2"/>
@@ -743,7 +743,7 @@
                         <circle cx="15" cy="133" r="1.5" fill="#006837"/>
                     </svg>
 
-                    <svg class="bg-watermark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                    <svg class="bg-watermark" width="100" height="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="42" fill="none" stroke="#006837" stroke-width="0.4"/>
                         <circle cx="50" cy="50" r="40" fill="none" stroke="#d4af37" stroke-width="0.3" stroke-dasharray="1 1"/>
                         <path d="M50 2 L54 34 L86 34 L59 54 L69 86 L50 66 L31 86 L41 54 L14 34 L46 34 Z" fill="none" stroke="#006837" stroke-width="0.4"/>
@@ -751,14 +751,14 @@
                         <circle cx="50" cy="50" r="14" fill="none" stroke="#d4af37" stroke-width="0.4"/>
                     </svg>
 
-                    <svg class="side-motif side-motif-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 100" preserveAspectRatio="none">
+                    <svg class="side-motif side-motif-left" width="10" height="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 100" preserveAspectRatio="none">
                         <line x1="5" y1="0" x2="5" y2="100" stroke="#d4af37" stroke-width="1" stroke-dasharray="3 3"/>
                         <polygon points="5,5 9,11 1,11" fill="#006837"/>
                         <polygon points="5,50 9,56 1,56" fill="#006837"/>
                         <polygon points="5,90 9,96 1,96" fill="#006837"/>
                     </svg>
 
-                    <svg class="side-motif side-motif-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 100" preserveAspectRatio="none">
+                    <svg class="side-motif side-motif-right" width="10" height="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 100" preserveAspectRatio="none">
                         <line x1="5" y1="0" x2="5" y2="100" stroke="#d4af37" stroke-width="1" stroke-dasharray="3 3"/>
                         <polygon points="5,5 9,11 1,11" fill="#006837"/>
                         <polygon points="5,50 9,56 1,56" fill="#006837"/>
@@ -766,7 +766,7 @@
                     </svg>
 
                     <div class="main-text">
-                        <svg class="islamic-pattern-mini-top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                        <svg class="islamic-pattern-mini-top" width="50" height="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
                             <path d="M25 10 L28 16 L35 17 L28 18 L25 24 L22 18 L15 17 L22 16 Z" fill="#006837" opacity="0.85"/>
                             <path d="M25 2 L26.5 7 L31.5 8 L26.5 9 L25 14 L23.5 9 L18.5 8 L23.5 7 Z" fill="#d4af37" opacity="0.6"/>
                         </svg>
@@ -824,6 +824,41 @@
             return currentTemplate === 'wisuda' ? 'printWisuda' : 'printPesantren';
         }
 
+        function replaceSVGsWithImages(card) {
+            const svgs = card.querySelectorAll('svg');
+            const svgData = [];
+            svgs.forEach(svg => {
+                // Konversi SVG ke Base64 Image
+                const xml = new XMLSerializer().serializeToString(svg);
+                const svg64 = btoa(unescape(encodeURIComponent(xml)));
+                const b64Start = 'data:image/svg+xml;base64,';
+                const image64 = b64Start + svg64;
+                
+                const img = document.createElement('img');
+                img.src = image64;
+                
+                // Copy atribut class, width, height, dll ke tag img agar posisinya sama persis
+                Array.from(svg.attributes).forEach(attr => {
+                    if (attr.name !== 'xmlns' && attr.name !== 'viewBox') {
+                        img.setAttribute(attr.name, attr.value);
+                    }
+                });
+                
+                // Tambahkan img ke DOM dan sembunyikan svg asli
+                svg.parentNode.insertBefore(img, svg);
+                svg.style.display = 'none';
+                svgData.push({svg, img});
+            });
+            return svgData;
+        }
+
+        function restoreSVGs(svgData) {
+            svgData.forEach(item => {
+                item.svg.style.display = '';
+                item.img.remove();
+            });
+        }
+
         async function downloadPNG() {
             const cardId = getActiveCardId();
             const card = document.getElementById(cardId);
@@ -832,6 +867,9 @@
             
             btn.textContent = '⏳ Memproses...';
             btn.disabled = true;
+            
+            // Trik untuk mengakali html2canvas agar bisa merender SVG
+            const svgData = replaceSVGsWithImages(card);
             
             try {
                 const canvas = await html2canvas(card, {
@@ -849,6 +887,8 @@
                 console.error(err);
                 alert('Gagal mengunduh PNG. Coba lagi!');
             } finally {
+                // Kembalikan ke SVG asli setelah selesai
+                restoreSVGs(svgData);
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
@@ -862,6 +902,9 @@
             
             btn.textContent = '⏳ Memproses...';
             btn.disabled = true;
+            
+            // Trik untuk mengakali html2canvas agar bisa merender SVG
+            const svgData = replaceSVGsWithImages(card);
             
             try {
                 const canvas = await html2canvas(card, {
@@ -886,6 +929,8 @@
                 console.error(err);
                 alert('Gagal mengunduh PDF. Coba lagi!');
             } finally {
+                // Kembalikan ke SVG asli setelah selesai
+                restoreSVGs(svgData);
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
