@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kartu Ucapan Graduation - Arch Shape</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Kartu Ucapan - Pilih Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&family=Sacramento&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -16,17 +16,71 @@
 
         body {
             min-height: 100vh;
-            background: #e0e0e0;
+            background: #e8e8e8;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            font-family: 'Poppins', sans-serif;
-            padding: 20px;
             gap: 20px;
         }
 
-        /* Editor Panel */
+        /* ===== PILIH TEMPLATE ===== */
+        .template-selector {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .template-selector h2 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .template-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .template-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .template-btn:hover {
+            border-color: #d4af37;
+            transform: translateY(-2px);
+        }
+
+        .template-btn.active {
+            border-color: #d4af37;
+            background: #fffbf0;
+            color: #2c3e50;
+        }
+
+        .template-btn .icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ===== EDITOR PANEL ===== */
         .editor-panel {
             background: white;
             padding: 25px 30px;
@@ -34,7 +88,11 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             width: 100%;
             max-width: 500px;
-            border: 1px solid #eee;
+            display: none;
+        }
+
+        .editor-panel.active {
+            display: block;
         }
 
         .editor-panel h3 {
@@ -43,18 +101,17 @@
             font-size: 16px;
             text-align: center;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .input-group {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .input-group label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -62,11 +119,11 @@
 
         .input-group input, .input-group textarea {
             width: 100%;
-            padding: 10px 14px;
+            padding: 8px 12px;
             border: 1.5px solid #e0e0e0;
             border-radius: 6px;
             font-family: 'Poppins', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.2s;
             background: #fafafa;
         }
@@ -79,7 +136,7 @@
 
         .input-group textarea {
             resize: vertical;
-            min-height: 50px;
+            min-height: 45px;
         }
 
         .btn-group {
@@ -90,12 +147,12 @@
 
         .btn {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: 6px;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
             text-align: center;
@@ -119,16 +176,21 @@
             background: #a93226;
         }
 
-        /* Kartu Wrapper */
+        /* ===== KARTU WRAPPER ===== */
         .card-wrapper {
             position: relative;
             padding: 20px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
         }
 
-        /* Area Cetak dengan Panduan Gunting */
+        .card-wrapper.active {
+            display: block;
+        }
+
+        /* Area Cetak */
         .print-area {
             position: relative;
             width: 500px;
@@ -136,7 +198,7 @@
             background: white;
         }
 
-        /* Panduan Gunting - Kotak Luar */
+        /* Panduan Gunting */
         .cut-guide-outer {
             position: absolute;
             top: 0;
@@ -149,7 +211,6 @@
             z-index: 100;
         }
 
-        /* Panduan Lengkung Atas - Setengah Lingkaran */
         .arch-guide {
             position: absolute;
             top: -2px;
@@ -167,7 +228,7 @@
             stroke-dasharray: 8, 4;
         }
 
-        /* Kartu Sebenarnya (di dalam panduan) */
+        /* Kartu Inner */
         .card-inner {
             position: absolute;
             top: 10px;
@@ -175,45 +236,43 @@
             right: 10px;
             bottom: 10px;
             background: white;
-            /* Setengah lingkaran di atas: radius = setengah lebar */
             border-radius: 240px 240px 0 0;
             overflow: hidden;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
         }
 
-        /* Aksen 1: Garis emas tipis di atas */
+        /* Aksen */
         .top-accent-line {
             position: absolute;
             top: 80px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: 80px;
             height: 2px;
             background: #d4af37;
-            opacity: 0.6;
+            opacity: 0.5;
             border-radius: 1px;
         }
 
-        /* Aksen 2: Titik emas kecil di bawah divider */
         .bottom-accent-dot {
             position: absolute;
-            bottom: 120px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: #d4af37;
             border-radius: 50%;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
-        /* Hiasan Sudut Minimalis */
+        /* Corner accents */
         .corner-accent {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.35;
         }
 
         .corner-tl {
@@ -221,7 +280,7 @@
             left: 25px;
             border-top: 2px solid #d4af37;
             border-left: 2px solid #d4af37;
-            border-radius: 4px 0 0 0;
+            border-radius: 3px 0 0 0;
         }
 
         .corner-tr {
@@ -229,21 +288,21 @@
             right: 25px;
             border-top: 2px solid #d4af37;
             border-right: 2px solid #d4af37;
-            border-radius: 0 4px 0 0;
+            border-radius: 0 3px 0 0;
         }
 
-        /* Kupu-kupu minimalis */
+        /* Butterfly */
         .butterfly-mini {
             position: absolute;
             top: 45px;
             right: 70px;
-            width: 35px;
-            height: 35px;
-            opacity: 0.7;
+            width: 30px;
+            height: 30px;
+            opacity: 0.6;
             pointer-events: none;
         }
 
-        /* Konten Teks */
+        /* ===== KONTEN KARTU ===== */
         .card-content {
             position: relative;
             z-index: 10;
@@ -256,123 +315,214 @@
             text-align: center;
         }
 
-        .graduation-cap {
-            font-size: 48px;
-            margin-bottom: 25px;
+        /* --- TEMPLATE WISUDA - LATIN BIASA --- */
+        .wisuda .graduation-cap {
+            font-size: 36px;
+            margin-bottom: 15px;
             line-height: 1;
             filter: grayscale(0.3);
         }
 
-        /* Judul dengan font elegan tapi jelas */
-        .title {
+        .wisuda .title {
             font-family: 'Playfair Display', serif;
-            font-size: 40px;
+            font-size: 26px;
             font-weight: 700;
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             letter-spacing: 2px;
         }
 
-        .subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 15px;
-            font-style: italic;
-            color: #777;
-            margin-bottom: 50px;
+        .wisuda .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            color: #888;
+            margin-bottom: 35px;
             letter-spacing: 1px;
+            text-transform: lowercase;
         }
 
-        /* Nama dengan font BOLD dan JELAS - tidak menyambung */
-        .name {
+        .wisuda .name {
             font-family: 'Montserrat', sans-serif;
-            font-size: 32px;
+            font-size: 22px;
             font-weight: 700;
             color: #2c3e50;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             line-height: 1.3;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
-        .divider {
-            width: 60px;
-            height: 3px;
+        .wisuda .divider {
+            width: 40px;
+            height: 2px;
             background: #d4af37;
-            margin: 0 auto 30px;
-            opacity: 0.8;
-            border-radius: 2px;
+            margin: 0 auto 20px;
+            opacity: 0.6;
+            border-radius: 1px;
         }
 
-        .message {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            font-style: italic;
+        .wisuda .message {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
             color: #555;
-            line-height: 1.5;
-            max-width: 320px;
-            letter-spacing: 0.3px;
+            line-height: 1.6;
+            max-width: 300px;
+            letter-spacing: 0.2px;
         }
 
-        /* Print styles */
+        /* --- TEMPLATE PESANTREN - LATIN BIASA, BOCIL SAMBUNG --- */
+        .pesantren .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .pesantren .name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2px;
+            line-height: 1.3;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* BOCIL - TULISAN SAMBUNG KECIL */
+        .pesantren .nickname {
+            font-family: 'Sacramento', cursive;
+            font-size: 22px;
+            font-weight: 400;
+            color: #999;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .pesantren .divider {
+            width: 35px;
+            height: 2px;
+            background: #d4af37;
+            margin: 0 auto 18px;
+            opacity: 0.5;
+            border-radius: 1px;
+        }
+
+        .pesantren .arabic-phrase {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .pesantren .message {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #555;
+            line-height: 1.7;
+            max-width: 320px;
+            margin-bottom: 25px;
+            letter-spacing: 0.2px;
+        }
+
+        .pesantren .closing {
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            color: #777;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .pesantren .sender {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            letter-spacing: 1px;
+        }
+
+        /* Print */
         @media print {
-            body { 
-                background: white; 
-                padding: 0;
-            }
-            .editor-panel { 
-                display: none; 
-            }
+            body { background: white; padding: 0; }
+            .template-selector, .editor-panel { display: none !important; }
             .card-wrapper { 
+                display: block !important; 
                 box-shadow: none; 
                 padding: 0;
             }
-            .cut-guide-outer {
-                border-color: #ccc;
-            }
-            .arch-guide-line {
-                stroke: #ccc;
-            }
+            .cut-guide-outer { border-color: #ccc; }
+            .arch-guide-line { stroke: #ccc; }
         }
 
         /* Mobile */
         @media (max-width: 540px) {
-            .print-area {
-                width: 340px;
-                height: 480px;
-            }
-            .card-inner {
-                border-radius: 160px 160px 0 0;
-            }
-            .title { font-size: 28px; }
-            .name { font-size: 22px; }
-            .message { font-size: 16px; }
+            .print-area { width: 340px; height: 480px; }
+            .card-inner { border-radius: 160px 160px 0 0; }
             .card-content { padding: 90px 30px 60px; }
-            .graduation-cap { font-size: 36px; }
-            .top-accent-line { top: 60px; width: 70px; }
-            .bottom-accent-dot { bottom: 90px; }
-            .corner-accent { width: 45px; height: 45px; }
+            
+            .wisuda .title { font-size: 20px; }
+            .wisuda .name { font-size: 17px; }
+            .wisuda .message { font-size: 11px; }
+            .wisuda .subtitle { font-size: 10px; }
+            
+            .pesantren .title { font-size: 16px; }
+            .pesantren .name { font-size: 15px; }
+            .pesantren .nickname { font-size: 18px; }
+            .pesantren .arabic-phrase { font-size: 14px; }
+            .pesantren .message { font-size: 10px; }
+            .pesantren .closing { font-size: 10px; }
+            .pesantren .sender { font-size: 12px; }
+            
+            .top-accent-line { top: 60px; width: 60px; }
+            .bottom-accent-dot { bottom: 80px; }
+            .corner-accent { width: 40px; height: 40px; }
+            .butterfly-mini { width: 25px; height: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Panel Editor -->
-    <div class="editor-panel">
-        <h3>✏️ EDIT KARTU UCAPAN</h3>
+    <!-- ===== PILIH TEMPLATE ===== -->
+    <div class="template-selector" id="templateSelector">
+        <h2>Pilih Template Kartu</h2>
+        <div class="template-options">
+            <button class="template-btn" onclick="selectTemplate('wisuda')" id="btnWisuda">
+                <span class="icon">🎓</span>
+                Wisuda
+            </button>
+            <button class="template-btn" onclick="selectTemplate('pesantren')" id="btnPesantren">
+                <span class="icon">📖</span>
+                Pesantren
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== EDITOR WISUDA ===== -->
+    <div class="editor-panel" id="editorWisuda">
+        <h3>✏️ EDIT KARTU WISUDA</h3>
         
         <div class="input-group">
-            <label>Judul Utama</label>
-            <input type="text" id="inputTitle" value="Happy Graduation" oninput="updateCard()">
+            <label>Judul</label>
+            <input type="text" id="wisudaTitle" value="Happy Graduation" oninput="updateWisuda()">
         </div>
         
         <div class="input-group">
-            <label>Nama Wisudawan/i</label>
-            <input type="text" id="inputName" value="KHOERUNISA A.MD.KEP" oninput="updateCard()">
+            <label>Nama</label>
+            <input type="text" id="wisudaName" value="KHOERUNISA A.MD.KEP" oninput="updateWisuda()">
         </div>
         
         <div class="input-group">
             <label>Ucapan</label>
-            <textarea id="inputMessage" oninput="updateCard()">So Proud of you sayang!! 🖤</textarea>
+            <textarea id="wisudaMessage" oninput="updateWisuda()">So Proud of you sayang!!</textarea>
         </div>
 
         <div class="btn-group">
@@ -381,31 +531,64 @@
         </div>
     </div>
 
-    <!-- Kartu -->
-    <div class="card-wrapper">
-        <div class="print-area" id="cardToDownload">
-            
-            <!-- Panduan Gunting -->
+    <!-- ===== EDITOR PESANTREN ===== -->
+    <div class="editor-panel" id="editorPesantren">
+        <h3>✏️ EDIT KARTU PESANTREN</h3>
+        
+        <div class="input-group">
+            <label>Judul</label>
+            <input type="text" id="pesantrenTitle" value="Congratulation" oninput="updatePesantren()">
+        </div>
+        
+        <div class="input-group">
+            <label>Nama</label>
+            <input type="text" id="pesantrenName" value="QUEENSYA" oninput="updatePesantren()">
+        </div>
+        
+        <div class="input-group">
+            <label>Panggilan (sambung kecil)</label>
+            <input type="text" id="pesantrenNickname" value="bocil" oninput="updatePesantren()">
+        </div>
+        
+        <div class="input-group">
+            <label>Doa</label>
+            <input type="text" id="pesantrenArabic" value="Barokallah Fii Ilmi" oninput="updatePesantren()">
+        </div>
+        
+        <div class="input-group">
+            <label>Pesan</label>
+            <textarea id="pesantrenMessage" oninput="updatePesantren()">Selamat melanjutkan study di pesantren... semangat terus yach de.... allahumma barik</textarea>
+        </div>
+        
+        <div class="input-group">
+            <label>Penutup</label>
+            <input type="text" id="pesantrenClosing" value="Salam sayang" oninput="updatePesantren()">
+        </div>
+        
+        <div class="input-group">
+            <label>Pengirim</label>
+            <input type="text" id="pesantrenSender" value="Ayah & Mama" oninput="updatePesantren()">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-png" onclick="downloadPNG()">📷 Simpan PNG</button>
+            <button class="btn btn-pdf" onclick="downloadPDF()">📄 Simpan PDF</button>
+        </div>
+    </div>
+
+    <!-- ===== KARTU WISUDA ===== -->
+    <div class="card-wrapper" id="cardWisuda">
+        <div class="print-area" id="printWisuda">
             <div class="cut-guide-outer"></div>
-            
-            <!-- Garis Lengkung Atas - Setengah Lingkaran -->
             <svg class="arch-guide" viewBox="0 0 504 250" preserveAspectRatio="none">
                 <path class="arch-guide-line" d="M 2 250 L 2 125 Q 2 2 252 2 Q 502 2 502 125 L 502 250"/>
             </svg>
-
-            <!-- Kartu Sebenarnya -->
             <div class="card-inner">
-                <!-- Aksen 1: Garis emas tipis di atas -->
                 <div class="top-accent-line"></div>
-
-                <!-- Aksen 2: Titik emas kecil di bawah -->
                 <div class="bottom-accent-dot"></div>
-
-                <!-- Hiasan Sudut -->
                 <div class="corner-accent corner-tl"></div>
                 <div class="corner-accent corner-tr"></div>
-
-                <!-- Kupu-kupu -->
+                
                 <svg class="butterfly-mini" viewBox="0 0 50 50">
                     <path d="M25 25 Q18 15 12 20 Q15 28 25 25 Q35 28 38 20 Q32 15 25 25" fill="#d4af37" opacity="0.8"/>
                     <path d="M25 25 Q18 32 14 36 Q20 34 25 25 Q30 34 36 36 Q32 32 25 25" fill="#d4af37" opacity="0.6"/>
@@ -413,18 +596,40 @@
                     <line x1="25" y1="18" x2="27" y2="12" stroke="#666" stroke-width="0.8"/>
                 </svg>
 
-                <!-- Konten -->
-                <div class="card-content">
+                <div class="card-content wisuda">
                     <div class="graduation-cap">🎓</div>
-                    
-                    <div class="title" id="cardTitle">Happy Graduation</div>
+                    <div class="title" id="wisudaCardTitle">Happy Graduation</div>
                     <div class="subtitle">congratulations on your graduation</div>
-                    
-                    <div class="name" id="cardName">KHOERUNISA A.MD.KEP</div>
-                    
+                    <div class="name" id="wisudaCardName">KHOERUNISA A.MD.KEP</div>
                     <div class="divider"></div>
-                    
-                    <div class="message" id="cardMessage">So Proud of you sayang!! 🖤</div>
+                    <div class="message" id="wisudaCardMessage">So Proud of you sayang!!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== KARTU PESANTREN ===== -->
+    <div class="card-wrapper" id="cardPesantren">
+        <div class="print-area" id="printPesantren">
+            <div class="cut-guide-outer"></div>
+            <svg class="arch-guide" viewBox="0 0 504 250" preserveAspectRatio="none">
+                <path class="arch-guide-line" d="M 2 250 L 2 125 Q 2 2 252 2 Q 502 2 502 125 L 502 250"/>
+            </svg>
+            <div class="card-inner">
+                <div class="top-accent-line"></div>
+                <div class="bottom-accent-dot"></div>
+                <div class="corner-accent corner-tl"></div>
+                <div class="corner-accent corner-tr"></div>
+
+                <div class="card-content pesantren">
+                    <div class="title" id="pesantrenCardTitle">Congratulation</div>
+                    <div class="name" id="pesantrenCardName">QUEENSYA</div>
+                    <div class="nickname" id="pesantrenCardNickname">bocil</div>
+                    <div class="divider"></div>
+                    <div class="arabic-phrase" id="pesantrenCardArabic">Barokallah Fii Ilmi</div>
+                    <div class="message" id="pesantrenCardMessage">Selamat melanjutkan study di pesantren... semangat terus yach de.... allahumma barik</div>
+                    <div class="closing" id="pesantrenCardClosing">Salam sayang</div>
+                    <div class="sender" id="pesantrenCardSender">Ayah & Mama</div>
                 </div>
             </div>
         </div>
@@ -432,16 +637,48 @@
 
     <script>
         const { jsPDF } = window.jspdf;
+        let currentTemplate = '';
 
-        function updateCard() {
-            document.getElementById('cardTitle').textContent = document.getElementById('inputTitle').value || 'Happy Graduation';
-            document.getElementById('cardName').textContent = document.getElementById('inputName').value || 'NAMA';
-            document.getElementById('cardMessage').textContent = document.getElementById('inputMessage').value || 'Ucapan';
+        function selectTemplate(type) {
+            currentTemplate = type;
+            
+            document.getElementById('btnWisuda').classList.remove('active');
+            document.getElementById('btnPesantren').classList.remove('active');
+            
+            document.getElementById('editorWisuda').classList.remove('active');
+            document.getElementById('editorPesantren').classList.remove('active');
+            document.getElementById('cardWisuda').classList.remove('active');
+            document.getElementById('cardPesantren').classList.remove('active');
+            
+            document.getElementById('btn' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active');
+            document.getElementById('editor' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active');
+            document.getElementById('card' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active');
+        }
+
+        function updateWisuda() {
+            document.getElementById('wisudaCardTitle').textContent = document.getElementById('wisudaTitle').value || 'Happy Graduation';
+            document.getElementById('wisudaCardName').textContent = document.getElementById('wisudaName').value || 'NAMA';
+            document.getElementById('wisudaCardMessage').textContent = document.getElementById('wisudaMessage').value || 'Ucapan';
+        }
+
+        function updatePesantren() {
+            document.getElementById('pesantrenCardTitle').textContent = document.getElementById('pesantrenTitle').value || 'Congratulation';
+            document.getElementById('pesantrenCardName').textContent = document.getElementById('pesantrenName').value || 'NAMA';
+            document.getElementById('pesantrenCardNickname').textContent = document.getElementById('pesantrenNickname').value || '';
+            document.getElementById('pesantrenCardArabic').textContent = document.getElementById('pesantrenArabic').value || '';
+            document.getElementById('pesantrenCardMessage').textContent = document.getElementById('pesantrenMessage').value || '';
+            document.getElementById('pesantrenCardClosing').textContent = document.getElementById('pesantrenClosing').value || '';
+            document.getElementById('pesantrenCardSender').textContent = document.getElementById('pesantrenSender').value || '';
+        }
+
+        function getActiveCardId() {
+            return currentTemplate === 'wisuda' ? 'printWisuda' : 'printPesantren';
         }
 
         async function downloadPNG() {
-            const card = document.getElementById('cardToDownload');
-            const btn = document.querySelector('.btn-png');
+            const cardId = getActiveCardId();
+            const card = document.getElementById(cardId);
+            const btn = event.target;
             const originalText = btn.textContent;
             
             btn.textContent = '⏳ Memproses...';
@@ -456,7 +693,7 @@
                 });
                 
                 const link = document.createElement('a');
-                link.download = 'kartu-graduation-arch.png';
+                link.download = 'kartu-' + currentTemplate + '.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             } catch (err) {
@@ -469,8 +706,9 @@
         }
 
         async function downloadPDF() {
-            const card = document.getElementById('cardToDownload');
-            const btn = document.querySelector('.btn-pdf');
+            const cardId = getActiveCardId();
+            const card = document.getElementById(cardId);
+            const btn = event.target;
             const originalText = btn.textContent;
             
             btn.textContent = '⏳ Memproses...';
@@ -486,15 +724,14 @@
                 
                 const imgData = canvas.toDataURL('image/png');
                 
-                // Ukuran print area 500x700px
                 const pdf = new jsPDF({
                     orientation: 'portrait',
                     unit: 'mm',
-                    format: [127, 178] // ~5x7 inch
+                    format: [127, 178]
                 });
                 
                 pdf.addImage(imgData, 'PNG', 0, 0, 127, 178);
-                pdf.save('kartu-graduation-arch.pdf');
+                pdf.save('kartu-' + currentTemplate + '.pdf');
                 
             } catch (err) {
                 console.error(err);
